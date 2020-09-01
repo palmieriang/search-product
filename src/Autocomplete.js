@@ -7,9 +7,10 @@ import "./Autocomplete.css";
 const Autocomplete = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [activeSuggestion, setActiveSuggestion] = useState(0);
 
   useEffect(() => {
-    if(searchTerm) {
+    if(searchTerm.length > 1) {
       fetchSuggestions(searchTerm).then((_suggestions) => {
         const showedSuggestions = _suggestions.slice(0, 10);
         setSuggestions(showedSuggestions);
@@ -23,6 +24,40 @@ const Autocomplete = () => {
     setSearchTerm(event.target.value);
   };
 
+  const handleOnKeyDown = (event) => {
+    // User pressed the enter key, update the input and close the suggestions
+    if (event.keyCode === 13) {
+      console.info(suggestions[activeSuggestion].id);
+      setSearchTerm('');
+      setActiveSuggestion(0);
+    }
+    // User pressed the up arrow, decrement the index
+    else if (event.keyCode === 38 || (event.shiftKey && event.keyCode === 9)) {
+      if (activeSuggestion === 0) {
+        return;
+      }
+      setActiveSuggestion(activeSuggestion - 1);
+    }
+    // User pressed the down arrow or tab, increment the index
+    else if (event.keyCode === 40 || event.keyCode === 9) {
+      if (activeSuggestion + 1 === suggestions.length) {
+        return;
+      }
+      setActiveSuggestion(activeSuggestion + 1);
+    }
+  };
+
+  const handleMouse = (event) => {
+    const newIndex = parseInt(event.target.dataset.index, 10);
+    setActiveSuggestion(newIndex);
+  };
+
+  const handleChooseProduct = (event) => {
+    const index = parseInt(event.target.dataset.index, 10);
+    console.info(suggestions[index].id);
+    setSearchTerm('');
+  };
+
   return (
     <div className="search-container">
       <input
@@ -31,13 +66,27 @@ const Autocomplete = () => {
         className="search-box"
         placeholder="Search for a product"
         onChange={handleOnChange}
+        onKeyDown={handleOnKeyDown}
       />
 
       {suggestions.length > 0 && (
         <ul className="suggestions">
-          {suggestions.map((suggestion) => {
+          {suggestions.map((suggestion, index) => {
+            let className;
+            // Flag the active suggestion with a class
+            if (index === activeSuggestion) {
+              className = "suggestion-active";
+            }
             return (
-              <li key={suggestion.id}> {suggestion.name} </li>
+              <li
+                key={suggestion.id}
+                className={className}
+                data-index={index}
+                onClick={handleChooseProduct}
+                onMouseEnter={handleMouse}
+              >
+                {suggestion.name}
+              </li>
             )
           })}
         </ul>

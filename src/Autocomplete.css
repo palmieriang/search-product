@@ -25,3 +25,9 @@
   list-style: none;
   padding: 1rem;
 }
+
+.suggestions .suggestion-active,
+.suggestions li:hover {
+  background-color: #f8f8f8;
+  cursor: pointer;
+}

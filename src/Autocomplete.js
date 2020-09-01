@@ -9,10 +9,19 @@ const Autocomplete = () => {
   const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
-    fetchSuggestions(searchTerm).then((_suggestions) =>
-      setSuggestions(_suggestions)
-    );
+    if(searchTerm) {
+      fetchSuggestions(searchTerm).then((_suggestions) => {
+        const showedSuggestions = _suggestions.slice(0, 10);
+        setSuggestions(showedSuggestions);
+      });
+    } else {
+      setSuggestions('');
+    }
   }, [searchTerm]);
+
+  const handleOnChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
   return (
     <div className="search-container">
@@ -21,9 +30,18 @@ const Autocomplete = () => {
         value={searchTerm}
         className="search-box"
         placeholder="Search for a product"
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={handleOnChange}
       />
-      {/* TODO: render search suggestions */}
+
+      {suggestions.length > 0 && (
+        <ul className="suggestions">
+          {suggestions.map((suggestion) => {
+            return (
+              <li key={suggestion.id}> {suggestion.name} </li>
+            )
+          })}
+        </ul>
+      )}
     </div>
   );
 }

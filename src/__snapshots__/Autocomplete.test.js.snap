@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Autocomplete Renders correctly 1`] = `
+<div
+  className="search-container"
+>
+  <input
+    className="search-box"
+    onChange={[Function]}
+    placeholder="Search for a product"
+    type="text"
+    value=""
+  />
+</div>
+`;

@@ -2,8 +2,8 @@ import React from "react";
 
 import "./App.css";
 
-import Autocomplete from "./Autocomplete";
-import ProductDetail from "./ProductDetail";
+import Autocomplete from "./components/Autocomplete/Autocomplete";
+import ProductDetail from "./components/ProductDetail/ProductDetail";
 
 const App = () => {
   return (

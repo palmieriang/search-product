@@ -5,7 +5,7 @@ import "./App.css";
 import Autocomplete from "./Autocomplete";
 import ProductDetail from "./ProductDetail";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <Autocomplete />

@@ -4,7 +4,7 @@ import { fetchProductDetail } from "./utils/api";
 
 import "./ProductDetail.css";
 
-function ProductDetail({ productId }) {
+const ProductDetail = ({ productId }) => {
   const [productInfo, setProductInfo] = useState(null);
 
   useEffect(() => {

@@ -4,7 +4,7 @@ import { fetchSuggestions } from "./utils/api";
 
 import "./Autocomplete.css";
 
-function Autocomplete() {
+const Autocomplete = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 

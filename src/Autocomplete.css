@@ -19,26 +19,42 @@
 }
 
 .suggestions li {
-  background-color: white;
   border: 1px solid #e4e4e4;
   border-top-width: 0;
   list-style: none;
-  padding: 1rem;
 }
 
-.suggestions .suggestion-active,
-.suggestions li:hover {
+.suggestion-active .suggestion-button,
+.suggestions .suggestion-button:hover {
+  background-color: #f8f8f8;
+  cursor: pointer;
+}
+
+.suggestion-button {
+  border: none;
+  height: 100%;
+  padding: 1rem;
+  text-align: left;
+  width: 100%;
+}
+
+.suggestion-button:focus {
+  background-color: #f8f8f8;
+  outline: 1px solid #16a2ff;
+}
+
+.suggestion-button:hover {
   background-color: #f8f8f8;
   cursor: pointer;
 }
 
 .visually-hidden {
-  position:absolute;
-  left:-10000px;
-  top:auto;
-  width:1px;
-  height:1px;
-  overflow:hidden;
+  height: 1px;
+  left: -10000px;
+  overflow: hidden;
+  position: absolute;
+  top: auto;
+  width: 1px;
 }
 
 @media (max-width: 600px) {

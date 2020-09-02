@@ -68,7 +68,7 @@ const Autocomplete = ({ handleProductId }) => {
       <label htmlFor="search-box" className="visually-hidden">Search for a product or brand</label>
       <input
         id="search-box"
-        type="text"
+        type="search"
         value={searchTerm}
         className="search-box"
         placeholder="Search for a product"
@@ -80,24 +80,24 @@ const Autocomplete = ({ handleProductId }) => {
         <ul className="suggestions">
           {suggestions.map((suggestion, index) => {
             let className;
-            // Flag the active suggestion with a class
             if (index === activeSuggestion) {
               className = "suggestion-active";
             }
+
             return (
               <li
                 data-index={index}
                 key={suggestion.id}
                 className={className}
-                onClick={handleChooseProduct}
               >
                 <button
+                  className="suggestion-button"
                   data-index={index}
                   data-id={suggestion.id}
                   onClick={handleChooseProduct}
-                  onMouseEnter={handleMouse}
                   onKeyDown={handleOnKeyDown}
-                >
+                  onMouseEnter={handleMouse}
+                  >
                   {suggestion.name}
                 </button>
               </li>

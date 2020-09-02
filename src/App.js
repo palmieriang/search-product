@@ -6,7 +6,7 @@ import Autocomplete from "./Autocomplete";
 import ProductDetail from "./ProductDetail";
 
 const App = () => {
-  const [productId, setProductId] = useState(null);
+  const [productId, setProductId] = useState('');
 
   const handleProductId = (id) => {
     setProductId(id);

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from 'prop-types';
 
 import { fetchProductDetail } from "./utils/api";
 
@@ -36,5 +37,9 @@ const ProductDetail = ({ productId }) => {
 
   return productInfo && renderProductInfo();
 }
+
+ProductDetail.propTypes = {
+  productId: PropTypes.string,
+};
 
 export default ProductDetail;

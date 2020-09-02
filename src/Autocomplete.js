@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from 'prop-types';
 
 import { fetchSuggestions } from "./utils/api";
 
@@ -107,5 +108,9 @@ const Autocomplete = ({ handleProductId }) => {
     </div>
   );
 }
+
+Autocomplete.propTypes = {
+  handleProductId: PropTypes.func,
+};
 
 export default Autocomplete;

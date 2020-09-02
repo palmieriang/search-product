@@ -31,3 +31,18 @@
   background-color: #f8f8f8;
   cursor: pointer;
 }
+
+.visually-hidden {
+  position:absolute;
+  left:-10000px;
+  top:auto;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+}
+
+@media (max-width: 600px) {
+  .search-container {
+    width: 100%;
+  }
+}

@@ -7,8 +7,11 @@
 }
 
 .row {
+  align-items: flex-end;
   display: flex;
+  justify-content: space-between;
   margin: 16px 0;
+  text-transform: capitalize;
 }
 
 .row-title {
@@ -17,6 +20,26 @@
   font-weight: bold;
 }
 
+.row-body {
+  color: #757575;
+}
+
+.product-price {
+  font-weight: bold;
+}
+
+.product-id {
+  font-size: 0.8rem;
+}
+
 .product-image {
   max-width: 100%;
+}
+
+@media (max-width: 600px) {
+  .detail-container {
+    margin-bottom: 30px;
+    margin-left: 0;
+    width: 100%;
+  }
 }

@@ -7,3 +7,10 @@
   width: 95%;
   max-width: 70rem;
 }
+
+@media (max-width: 600px) {
+  .App {
+    flex-direction: column-reverse;
+    padding: 2rem 0;
+  }
+}

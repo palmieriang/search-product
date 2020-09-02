@@ -4,7 +4,7 @@ import { fetchSuggestions } from "./utils/api";
 
 import "./Autocomplete.css";
 
-const Autocomplete = () => {
+const Autocomplete = ({ handleProductId }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [activeSuggestion, setActiveSuggestion] = useState(0);
@@ -27,7 +27,7 @@ const Autocomplete = () => {
   const handleOnKeyDown = (event) => {
     // User pressed the enter key, update the input and close the suggestions
     if (event.keyCode === 13) {
-      console.info(suggestions[activeSuggestion].id);
+      handleProductId(suggestions[activeSuggestion].id);
       setSearchTerm('');
       setActiveSuggestion(0);
     }
@@ -54,7 +54,7 @@ const Autocomplete = () => {
 
   const handleChooseProduct = (event) => {
     const index = parseInt(event.target.dataset.index, 10);
-    console.info(suggestions[index].id);
+    handleProductId(suggestions[index].id);
     setSearchTerm('');
   };
 

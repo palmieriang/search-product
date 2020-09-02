@@ -14,12 +14,6 @@
   text-transform: capitalize;
 }
 
-.row-title {
-  width: 8rem;
-  flex-shrink: 0;
-  font-weight: bold;
-}
-
 .row-body {
   color: #757575;
 }

@@ -1,37 +1,36 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from 'prop-types';
+import React, { useState, useEffect, useCallback } from "react";
+import PropTypes from "prop-types";
 
 import { fetchSuggestions } from "./utils/api";
 
 import "./Autocomplete.css";
 
-const Autocomplete = ({ handleProductId }) => {
-  const [searchTerm, setSearchTerm] = useState("");
+const Autocomplete = ({ onSelect }) => {
+  const [searchTerm, setSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [activeSuggestion, setActiveSuggestion] = useState(0);
 
   useEffect(() => {
-    if(searchTerm.length > 1) {
+    if (searchTerm.length > 1) {
       fetchSuggestions(searchTerm).then((_suggestions) => {
-        const showedSuggestions = _suggestions.slice(0, 10);
-        setSuggestions(showedSuggestions);
+        setSuggestions(_suggestions.slice(0, 10));
       });
     } else {
-      setSuggestions('');
+      setSuggestions([]);
     }
   }, [searchTerm]);
 
-  const handleOnChange = (event) => {
+  const handleOnChange = useCallback((event) => {
     setSearchTerm(event.target.value);
-  };
+  }, [setSearchTerm]);
 
-  const handleOnKeyDown = (event) => {
+  const handleOnKeyDown = useCallback((event) => {
     // User pressed the enter key, update the input and close the suggestions
     if (event.keyCode === 13) {
       if (event.target.dataset.id) {
-        handleProductId(event.target.dataset.id);
+        onSelect(event.target.dataset.id);
       } else if (suggestions.length > 0) {
-        handleProductId(suggestions[activeSuggestion].id);
+        onSelect(suggestions[activeSuggestion].id);
       }
       setSearchTerm('');
       setActiveSuggestion(0);
@@ -50,18 +49,18 @@ const Autocomplete = ({ handleProductId }) => {
       }
       setActiveSuggestion(activeSuggestion + 1);
     }
-  };
+  }, [activeSuggestion, onSelect, suggestions]);
 
-  const handleMouse = (event) => {
+  const handleMouse = useCallback((event) => {
     const newIndex = parseInt(event.target.dataset.index, 10);
     setActiveSuggestion(newIndex);
-  };
+  }, [setActiveSuggestion]);
 
-  const handleChooseProduct = (event) => {
+  const handleChooseProduct = useCallback((event) => {
     const index = parseInt(event.target.dataset.index, 10);
-    handleProductId(suggestions[index].id);
+    onSelect(suggestions[index].id);
     setSearchTerm('');
-  };
+  }, [onSelect, suggestions]);
 
   return (
     <div className="search-container">
@@ -76,7 +75,7 @@ const Autocomplete = ({ handleProductId }) => {
         onKeyDown={handleOnKeyDown}
       />
 
-      {suggestions.length > 0 && (
+      {suggestions.length > 1 && (
         <ul className="suggestions">
           {suggestions.map((suggestion, index) => {
             let className;
@@ -110,7 +109,7 @@ const Autocomplete = ({ handleProductId }) => {
 }
 
 Autocomplete.propTypes = {
-  handleProductId: PropTypes.func,
+  onSelect: PropTypes.func,
 };
 
 export default Autocomplete;

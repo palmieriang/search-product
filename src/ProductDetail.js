@@ -16,28 +16,28 @@ const ProductDetail = ({ productId }) => {
     );
   }, [productId]);
 
-  const renderProductInfo = () => {
-    const {productImage, name, price, productCode} = productInfo;
+  if (!productInfo) {
+    return null;
+  }
 
-    return (
-      <div className="detail-container">
-        <div className="row">
-          <img src={productImage} className="product-image" alt={name} />
-        </div>
+  const {productImage, name, price, productCode} = productInfo;
 
-        <div className="row">
-          <div className="row-body">{name}</div>
-        </div>
-
-        <div className="row">
-          <div className="row-body product-price">{price}</div>
-          <div className="row-body product-id">{productCode}</div>
-        </div>
+  return (
+    <div className="detail-container">
+      <div className="row">
+        <img src={productImage} className="product-image" alt={name} />
       </div>
-    );
-  };
 
-  return productInfo && renderProductInfo();
+      <div className="row">
+        <div className="row-body">{name}</div>
+      </div>
+
+      <div className="row">
+        <div className="row-body product-price">{price}</div>
+        <div className="row-body product-id">{productCode}</div>
+      </div>
+    </div>
+  );
 }
 
 ProductDetail.propTypes = {

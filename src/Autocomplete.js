@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
+import { debounce } from "lodash";
 
 import { fetchSuggestions } from "./utils/api";
 
@@ -7,18 +8,25 @@ import "./Autocomplete.css";
 
 const Autocomplete = ({ onSelect }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [suggestions, setSuggestions] = useState([]);
+  const [suggestions, setSuggestions] = useState(null);
   const [activeSuggestion, setActiveSuggestion] = useState(0);
 
+  const fetch = (term) => {
+    fetchSuggestions(term)
+      .then((_suggestions) => {
+        const showedSuggestions = _suggestions.slice(0, 10);
+        setSuggestions(showedSuggestions);
+      })
+  }
+  const debouncedFetch = useCallback(debounce(fetch, 500), []);
+
   useEffect(() => {
-    if (searchTerm.length > 1) {
-      fetchSuggestions(searchTerm).then((_suggestions) => {
-        setSuggestions(_suggestions.slice(0, 10));
-      });
+    if (searchTerm) {
+      debouncedFetch(searchTerm);
     } else {
-      setSuggestions([]);
+      setSuggestions(null);
     }
-  }, [searchTerm]);
+  }, [debouncedFetch, searchTerm]);
 
   const handleOnChange = useCallback((event) => {
     setSearchTerm(event.target.value);
@@ -75,7 +83,7 @@ const Autocomplete = ({ onSelect }) => {
         onKeyDown={handleOnKeyDown}
       />
 
-      {suggestions.length > 1 && (
+      {suggestions?.length > 1 && (
         <ul className="suggestions">
           {suggestions.map((suggestion, index) => {
             let className;

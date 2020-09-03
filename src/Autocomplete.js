@@ -37,7 +37,7 @@ const Autocomplete = ({ onSelect }) => {
     if (event.keyCode === 13) {
       if (event.target.dataset.id) {
         onSelect(event.target.dataset.id);
-      } else if (suggestions.length > 0) {
+      } else if (suggestions) {
         onSelect(suggestions[activeSuggestion].id);
       }
       setSearchTerm('');
@@ -59,7 +59,7 @@ const Autocomplete = ({ onSelect }) => {
     }
   }, [activeSuggestion, onSelect, suggestions]);
 
-  const handleMouse = useCallback((event) => {
+  const handleOnMouseEnter = useCallback((event) => {
     const newIndex = parseInt(event.target.dataset.index, 10);
     setActiveSuggestion(newIndex);
   }, [setActiveSuggestion]);
@@ -103,7 +103,7 @@ const Autocomplete = ({ onSelect }) => {
                   data-id={suggestion.id}
                   onClick={handleChooseProduct}
                   onKeyDown={handleOnKeyDown}
-                  onMouseEnter={handleMouse}
+                  onMouseEnter={handleOnMouseEnter}
                   >
                   {suggestion.name}
                 </button>

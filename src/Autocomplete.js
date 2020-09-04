@@ -10,15 +10,19 @@ const Autocomplete = ({ onSelect }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState(null);
   const [fetchError, setFetchError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetch = (term) => {
+    setIsLoading(true);
     fetchSuggestions(term)
       .then(
         (_suggestions) => {
           const showedSuggestions = _suggestions.slice(0, 10);
+          setIsLoading(false);
           setSuggestions(showedSuggestions);
         },
         (error) => {
+          setIsLoading(false);
           setFetchError(true);
         }
       )
@@ -70,7 +74,8 @@ const Autocomplete = ({ onSelect }) => {
         onChange={handleOnChange}
         onKeyDown={handleOnKeyDown}
       />
-      {fetchError && <p style={{color: 'red'}}>Something went wrong</p>}
+      {isLoading && !suggestions && <p className="loading-message">Loading...</p>}
+      {fetchError && <p className="error-message">Something went wrong</p>}
 
       {suggestions?.length > 0 && (
         <ul className="suggestions">
@@ -87,7 +92,7 @@ const Autocomplete = ({ onSelect }) => {
                   data-id={suggestion.id}
                   onClick={handleChooseProduct}
                   onKeyDown={handleOnKeyDown}
-                  >
+                >
                   {suggestion.name}
                 </button>
               </li>

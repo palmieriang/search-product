@@ -53,6 +53,15 @@
   cursor: pointer;
 }
 
+.loading-message,
+.error-message {
+  padding-left: 1rem;
+}
+
+.error-message {
+  color: #dc3545;
+}
+
 .visually-hidden {
   height: 1px;
   left: -10000px;

@@ -21,3 +21,25 @@ exports[`Autocomplete Renders correctly 1`] = `
   />
 </div>
 `;
+
+exports[`Autocomplete renders correctly 1`] = `
+<div
+  className="search-container"
+>
+  <label
+    className="visually-hidden"
+    htmlFor="search-box"
+  >
+    Search for a product or brand
+  </label>
+  <input
+    className="search-box"
+    id="search-box"
+    onChange={[Function]}
+    onKeyDown={[Function]}
+    placeholder="Search for a product"
+    type="search"
+    value=""
+  />
+</div>
+`;

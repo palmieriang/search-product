@@ -12,7 +12,7 @@ describe("Autocomplete", () => {
     fetchSuggestions.mockClear()
   });
 
-  it("Renders correctly", () => {
+  it("renders correctly", () => {
     const wrapper = shallow(<Autocomplete />);
     expect(wrapper).toMatchSnapshot();
   });
@@ -28,12 +28,12 @@ describe("Autocomplete", () => {
 
     render(<Autocomplete />);
 
-    const input = screen.getByLabelText(/Search/)
+    const input = screen.getByLabelText(/Search/);
     const query = "adidas";
 
     fireEvent.change(input, { target: { value: query } });
-    
-    await waitFor(() => expect(fetchSuggestions).toHaveBeenCalledWith(query))
+
+    await waitFor(() => expect(fetchSuggestions).toHaveBeenCalledWith(query));
   });
 
   it("should show suggestions", async () => {
@@ -42,8 +42,8 @@ describe("Autocomplete", () => {
     render(<Autocomplete />);
 
     fireEvent.change(screen.getByLabelText(/Search/), { target: { value: "shirt" } });
-    
-    await waitFor(() => expect(screen.getByText(/shirt/)).toBeInTheDocument())
+
+    await waitFor(() => expect(screen.getByText(/shirt/)).toBeInTheDocument());
   });
 
   it("should only show the top 10 suggestions at a time", async () => {
@@ -65,8 +65,8 @@ describe("Autocomplete", () => {
     render(<Autocomplete />);
 
     fireEvent.change(screen.getByLabelText(/Search/), { target: { value: "query" } });
-    
-    await waitFor(() => expect(screen.getAllByText(/shirt/)).toHaveLength(10))
+
+    await waitFor(() => expect(screen.getAllByText(/shirt/)).toHaveLength(10));
   });
 
   it("should not request for suggestions on every keystroke", async () => {
@@ -80,7 +80,7 @@ describe("Autocomplete", () => {
     const input = screen.getByLabelText(/Search/);
 
     userEvent.type(input, "queryasdasdasdasdassadsadadsdsadsa");
-    
-    await waitFor(() => expect(fetchSuggestions).toHaveBeenCalledTimes(1))
+
+    await waitFor(() => expect(fetchSuggestions).toHaveBeenCalledTimes(1));
   })
 });

@@ -68,6 +68,7 @@
   padding-left: 1rem;
 }
 
+/*for screen reader*/
 .visually-hidden {
   height: 1px;
   left: -10000px;

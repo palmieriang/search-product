@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import PropTypes from "prop-types";
 import { debounce } from "lodash";
 
@@ -12,6 +12,7 @@ const Autocomplete = ({ onSelect }) => {
   const [fetchError, setFetchError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [noMatches, setNoMatches] = useState(false);
+  const inputEl = useRef(null);
 
   const fetch = (term) => {
     setIsLoading(true);
@@ -58,8 +59,12 @@ const Autocomplete = ({ onSelect }) => {
       }
       if (event.target.dataset.id) {
         onSelect(event.target.dataset.id);
+        setSearchTerm('');
+        inputEl.current.focus();
       } else if (suggestions?.length) {
         onSelect(suggestions[0].id);
+        setSearchTerm('');
+        inputEl.current.focus();
       }
     }
   }, [onSelect, searchTerm, suggestions]);
@@ -68,12 +73,14 @@ const Autocomplete = ({ onSelect }) => {
     const index = parseInt(event.target.dataset.index, 10);
     onSelect(suggestions[index].id);
     setSearchTerm('');
+    inputEl.current.focus();
   }, [onSelect, suggestions]);
 
   return (
     <div className="search-container">
       <label htmlFor="search-box" className="visually-hidden">Search for a product or brand</label>
       <input
+        ref={inputEl}
         id="search-box"
         type="search"
         value={searchTerm}

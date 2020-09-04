@@ -10,18 +10,27 @@ const Autocomplete = ({ onSelect }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState(null);
   const [activeSuggestion, setActiveSuggestion] = useState(0);
+  const [fetchError, setFetchError] = useState(false);
 
   const fetch = (term) => {
     fetchSuggestions(term)
-      .then((_suggestions) => {
-        const showedSuggestions = _suggestions.slice(0, 10);
-        setSuggestions(showedSuggestions);
-      })
+      .then(
+        (_suggestions) => {
+          const showedSuggestions = _suggestions.slice(0, 10);
+          setSuggestions(showedSuggestions);
+        },
+        (error) => {
+          setFetchError(true);
+        }
+      )
   }
   const debouncedFetch = useCallback(debounce(fetch, 500), []);
 
   useEffect(() => {
     if (searchTerm) {
+      if (fetchError) {
+        setFetchError(false);
+      }
       debouncedFetch(searchTerm);
     } else {
       setSuggestions(null);
@@ -82,6 +91,7 @@ const Autocomplete = ({ onSelect }) => {
         onChange={handleOnChange}
         onKeyDown={handleOnKeyDown}
       />
+      {fetchError && <p style={{color: 'red'}}>Something went wrong</p>}
 
       {suggestions?.length > 0 && (
         <ul className="suggestions">

@@ -83,7 +83,7 @@ const Autocomplete = ({ onSelect }) => {
         onKeyDown={handleOnKeyDown}
       />
 
-      {suggestions?.length > 1 && (
+      {suggestions?.length > 0 && (
         <ul className="suggestions">
           {suggestions.map((suggestion, index) => {
             let className;

@@ -11,15 +11,22 @@ const Autocomplete = ({ onSelect }) => {
   const [suggestions, setSuggestions] = useState(null);
   const [fetchError, setFetchError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [noMatches, setNoMatches] = useState(false);
 
   const fetch = (term) => {
     setIsLoading(true);
     fetchSuggestions(term)
       .then(
         (_suggestions) => {
-          const showedSuggestions = _suggestions.slice(0, 10);
-          setIsLoading(false);
-          setSuggestions(showedSuggestions);
+          if (_suggestions.length > 0) {
+            const showedSuggestions = _suggestions.slice(0, 10);
+            setNoMatches(false);
+            setIsLoading(false);
+            setSuggestions(showedSuggestions);
+          } else {
+            setNoMatches(true);
+            setIsLoading(false);
+          }
         },
         (error) => {
           setIsLoading(false);
@@ -45,14 +52,15 @@ const Autocomplete = ({ onSelect }) => {
   }, [setSearchTerm]);
 
   const handleOnKeyDown = useCallback((event) => {
-    // User pressed the enter key
-    if (event.keyCode === 13) {
+    if (event.keyCode === 13) { // User pressed the enter key
+      if (searchTerm && !suggestions) {
+        event.preventDefault();
+      }
       if (event.target.dataset.id) {
         onSelect(event.target.dataset.id);
       } else if (suggestions?.length) {
         onSelect(suggestions[0].id);
       }
-      // setSearchTerm('');
     }
   }, [onSelect, searchTerm, suggestions]);
 
@@ -74,10 +82,12 @@ const Autocomplete = ({ onSelect }) => {
         onChange={handleOnChange}
         onKeyDown={handleOnKeyDown}
       />
-      {isLoading && !suggestions && <p className="loading-message">Loading...</p>}
+
+      {isLoading && !suggestions && <p className="search-message">Loading...</p>}
+      {noMatches && <p className="search-message">No matches</p>}
       {fetchError && <p className="error-message">Something went wrong</p>}
 
-      {suggestions?.length > 0 && (
+      {suggestions?.length > 0 && !noMatches && (
         <ul className="suggestions">
           {suggestions.map((suggestion, index) => {
 

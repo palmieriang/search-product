@@ -4,7 +4,7 @@
 
 .search-box {
   border: 2px solid #e4e4e4;
-  font-family: futura-pt, sans-serif;
+  font-family: sans-serif;
   font-size: 1rem;
   height: 100%; /*for Safari*/
   padding: 1rem;
@@ -53,13 +53,19 @@
   cursor: pointer;
 }
 
-.loading-message,
-.error-message {
-  padding-left: 1rem;
+.search-message {
+  background-color: #ffffff;
+  border: 1px solid #e4e4e4;
+  border-top-width: 0;
+  font-family: sans-serif;
+  font-size: 0.8rem;
+  margin: 0;
+  padding: 1rem;
 }
 
 .error-message {
   color: #dc3545;
+  padding-left: 1rem;
 }
 
 .visually-hidden {

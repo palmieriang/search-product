@@ -55,17 +55,15 @@ const Autocomplete = ({ onSelect }) => {
   const handleOnKeyDown = useCallback((event) => {
     if (event.keyCode === 13) { // User pressed the enter key
       if (searchTerm && !suggestions) {
-        event.preventDefault();
+        return;
       }
       if (event.target.dataset.id) {
         onSelect(event.target.dataset.id);
-        setSearchTerm('');
-        inputEl.current.focus();
       } else if (suggestions?.length) {
         onSelect(suggestions[0].id);
-        setSearchTerm('');
-        inputEl.current.focus();
       }
+      setSearchTerm('');
+      inputEl.current.focus();
     }
   }, [onSelect, searchTerm, suggestions]);
 

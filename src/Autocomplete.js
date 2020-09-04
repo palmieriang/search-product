@@ -42,7 +42,7 @@ const Autocomplete = ({ onSelect }) => {
   }, [setSearchTerm]);
 
   const handleOnKeyDown = useCallback((event) => {
-    // User pressed the enter key, update the input and close the suggestions
+    // User pressed the enter key
     if (event.keyCode === 13) {
       if (event.target.dataset.id) {
         onSelect(event.target.dataset.id);
@@ -53,19 +53,6 @@ const Autocomplete = ({ onSelect }) => {
       setActiveSuggestion(0);
     }
     // User pressed the up arrow, decrement the index
-    else if (event.keyCode === 38) {
-      if (activeSuggestion === 0) {
-        return;
-      }
-      setActiveSuggestion(activeSuggestion - 1);
-    }
-    // User pressed the down arrow, increment the index
-    else if (event.keyCode === 40) {
-      if (activeSuggestion + 1 === suggestions.length) {
-        return;
-      }
-      setActiveSuggestion(activeSuggestion + 1);
-    }
   }, [activeSuggestion, onSelect, suggestions]);
 
   const handleOnMouseEnter = useCallback((event) => {
@@ -96,16 +83,11 @@ const Autocomplete = ({ onSelect }) => {
       {suggestions?.length > 0 && (
         <ul className="suggestions">
           {suggestions.map((suggestion, index) => {
-            let className;
-            if (index === activeSuggestion) {
-              className = "suggestion-active";
-            }
 
             return (
               <li
                 data-index={index}
                 key={suggestion.id}
-                className={className}
               >
                 <button
                   className="suggestion-button"

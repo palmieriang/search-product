@@ -24,27 +24,22 @@
   list-style: none;
 }
 
-.suggestion-active .suggestion-button,
-.suggestions .suggestion-button:hover {
-  background-color: #f8f8f8;
-  cursor: pointer;
-}
-
 .suggestion-button {
   border: none;
   height: 100%;
   padding: 1rem;
   text-align: left;
   width: 100%;
+  transition: background-color 0.5s ease;
 }
 
 .suggestion-button:focus {
-  background-color: #f8f8f8;
+  background-color: #e4e1e1;
   outline: 1px solid #16a2ff;
 }
 
 .suggestion-button:hover {
-  background-color: #f8f8f8;
+  background-color: #e4e1e1;
   cursor: pointer;
 }
 

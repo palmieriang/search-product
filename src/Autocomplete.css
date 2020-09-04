@@ -3,10 +3,13 @@
 }
 
 .search-box {
-  width: 100%;
-  padding: 1rem;
-  font-size: 1rem;
   border: 2px solid #e4e4e4;
+  font-family: futura-pt, sans-serif;
+  font-size: 1rem;
+  height: 100%; /*for Safari*/
+  padding: 1rem;
+  width: 100%;
+  -webkit-appearance: textfield; /*for Safari*/
 }
 
 .search-box:focus {
@@ -25,8 +28,10 @@
 }
 
 .suggestion-button {
+  background-color: #ffffff; /*for FireFox*/
   border: none;
-  height: 100%;
+  font-size: 0.8rem;
+  height: 100%; /*for Safari*/
   padding: 1rem;
   text-align: left;
   width: 100%;
@@ -36,6 +41,11 @@
 .suggestion-button:focus {
   background-color: #e4e1e1;
   outline: 1px solid #16a2ff;
+}
+
+/*for FireFox*/
+.suggestion-button::-moz-focus-inner {
+  border: 0;
 }
 
 .suggestion-button:hover {

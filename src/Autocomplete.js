@@ -9,7 +9,6 @@ import "./Autocomplete.css";
 const Autocomplete = ({ onSelect }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState(null);
-  const [activeSuggestion, setActiveSuggestion] = useState(0);
   const [fetchError, setFetchError] = useState(false);
 
   const fetch = (term) => {
@@ -35,7 +34,7 @@ const Autocomplete = ({ onSelect }) => {
     } else {
       setSuggestions(null);
     }
-  }, [debouncedFetch, searchTerm]);
+  }, [debouncedFetch, fetchError, searchTerm]);
 
   const handleOnChange = useCallback((event) => {
     setSearchTerm(event.target.value);
@@ -46,19 +45,12 @@ const Autocomplete = ({ onSelect }) => {
     if (event.keyCode === 13) {
       if (event.target.dataset.id) {
         onSelect(event.target.dataset.id);
-      } else if (suggestions) {
-        onSelect(suggestions[activeSuggestion].id);
+      } else if (suggestions?.length) {
+        onSelect(suggestions[0].id);
       }
-      setSearchTerm('');
-      setActiveSuggestion(0);
+      // setSearchTerm('');
     }
-    // User pressed the up arrow, decrement the index
-  }, [activeSuggestion, onSelect, suggestions]);
-
-  const handleOnMouseEnter = useCallback((event) => {
-    const newIndex = parseInt(event.target.dataset.index, 10);
-    setActiveSuggestion(newIndex);
-  }, [setActiveSuggestion]);
+  }, [onSelect, searchTerm, suggestions]);
 
   const handleChooseProduct = useCallback((event) => {
     const index = parseInt(event.target.dataset.index, 10);
@@ -95,7 +87,6 @@ const Autocomplete = ({ onSelect }) => {
                   data-id={suggestion.id}
                   onClick={handleChooseProduct}
                   onKeyDown={handleOnKeyDown}
-                  onMouseEnter={handleOnMouseEnter}
                   >
                   {suggestion.name}
                 </button>

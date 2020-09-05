@@ -54,7 +54,8 @@
 }
 
 @media (max-width: 600px) {
-  .detail-container {
+  .detail-container,
+  .loading-container {
     margin-bottom: 30px;
     margin-left: 0;
     width: 100%;

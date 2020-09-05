@@ -30,10 +30,42 @@
   max-width: 100%;
 }
 
+.loading-container {
+  align-items: center;
+  background: #ffffff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  height: 36.5rem;
+  justify-content: center;
+  margin: 0 0 0 32px;
+  padding: 0 16px;
+  width: 30rem;
+}
+
+.loading-container svg {
+  height: 4rem;
+  width: 4rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .loading-container svg {
+    animation: loading-spin infinite 1s linear;
+  }
+}
+
 @media (max-width: 600px) {
   .detail-container {
     margin-bottom: 30px;
     margin-left: 0;
     width: 100%;
+  }
+}
+
+@keyframes loading-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

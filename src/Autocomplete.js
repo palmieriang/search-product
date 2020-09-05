@@ -89,7 +89,7 @@ const Autocomplete = ({ onSelect }) => {
       />
 
       {isLoading && !suggestions && <p className="search-message">Loading...</p>}
-      {noMatches && <p className="search-message">No matches</p>}
+      {noMatches && !isLoading && <p className="search-message">No matches</p>}
       {fetchError && <p className="error-message">Something went wrong</p>}
 
       {suggestions?.length > 0 && !noMatches && (

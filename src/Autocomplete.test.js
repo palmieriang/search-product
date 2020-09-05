@@ -2,6 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 import {render, screen, fireEvent, waitFor} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+
 import Autocomplete from "./Autocomplete";
 import { fetchSuggestions } from "./utils/api";
 

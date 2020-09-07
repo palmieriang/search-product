@@ -1,6 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 import {render, screen, waitFor} from "@testing-library/react";
+
 import ProductDetail from "./ProductDetail";
 import { fetchProductDetail } from "./utils/api";
 

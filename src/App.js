@@ -10,7 +10,7 @@ const App = () => {
 
   const handleSelection = useCallback((id) => {
     setProductId(id);
-  }, [setProductId]);
+  }, []);
 
   return (
     <div className="app">

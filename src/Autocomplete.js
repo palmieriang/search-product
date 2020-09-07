@@ -50,7 +50,7 @@ const Autocomplete = ({ onSelect }) => {
 
   const handleOnChange = useCallback((event) => {
     setSearchTerm(event.target.value);
-  }, [setSearchTerm]);
+  }, []);
 
   const handleOnKeyDown = useCallback((event) => {
     if (event.keyCode === 13) { // User pressed the enter key

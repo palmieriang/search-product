@@ -1,5 +1,4 @@
 import React from "react";
-import { shallow } from "enzyme";
 import {render, screen, fireEvent, waitFor} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -14,8 +13,8 @@ describe("Autocomplete", () => {
   });
 
   it("renders correctly", () => {
-    const wrapper = shallow(<Autocomplete />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<Autocomplete />);
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it("should not fetch if the user has not entered a search query", () => {

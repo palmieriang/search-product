@@ -1,48 +1,68 @@
-# ASOS Customer Care Web Engineering Take Home Test
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-This is a technical excercise involving both some refactoring of existing code and changes to meet some requirements. The exercise uses a React application which currently has no tests and a does not meet the given requirements.
+## Available Scripts
 
-## Getting Started
+In the project directory, you can run:
 
-This application is bootstrapped from a create-react-app application. To get started with the project, you will first need to run `npm install` (or `yarn`) from the root directory. After it has finished installing the required dependencies, get started by running `npm start` (or `yarn start`) which will start the development server on `localhost:3000`, any updates you make to the code will be hot reloaded without you needing to refresh the page.
+### `npm start`
 
-The project aims to display product search suggestions given a users search query and will display a product card with more detailed product information when selecting one of the search suggestions.
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The project has 2 main components:
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
 
-- The `Autocomplete` component renders a text input and fetches an array of search suggestions given the users inputted search query, rendering these suggestions as a list below the input.
-- The `ProductDetail` component recieves a product ID as a prop and fetches product information for the given ID, rendering the returned product data in a card style.
+### `npm test`
 
-The fetching logic for both of these components in contained within `utils/api.js` which exports a couple of helper functions for retrieving either search suggestions or product information from an ASOS API. Please note, this API is running in a serverless environment which might take a small amount of time to startup if it has not been accessed in a while. If you are experiencing a slow response time, it should go away after the first request but please reach out if you are experiencing consistent problems with the API.
+Launches the test runner in the interactive watch mode.<br />
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## The Problem
+### `npm run build`
 
-The project is currently unfinished, requiring some new feature development and some refactoring to the current solution. We would like you to alter the application in order to adhere to the following requirements:
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-1. When a user has typed a search query, the search suggestions should be shown in a list below the text input.
-2. Only show the top 10 suggestions at a time. If more suggestions have been returned by the API, you may assume that only the first 10 should be shown.
-3. If the user has not entered a search query, we should not fetch or display any search suggestions.
-4. When the user selects a suggestion, the product detail should be fetched and displayed in a card style matching the designs.
-5. When the user selects a suggestion, the search suggestions should be removed and the text input should be cleared.
-6. The application is not responsive and does not match the designs. Please look at the `/designs` directory and alter the application to be as close to the intended designs as possible. Please note that there are designs for desktop and mobile so your solution should be fully responsive and you should assume `600px` to be the breakpoint between desktop and mobile.
-7. Currently, a request for suggestions is fired on every keystroke, this should be made more efficient by debouncing the network request.
+The build is minified and the filenames include the hashes.<br />
+Your app is ready to be deployed!
 
-You may also notice a number of bad practices being displayed throughout the code, please make corrections where you see fit.
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-The application only includes 1 test, which is a snapshot test of the `Autocomplete` component! We would like you to write tests to prove your changes work, as well as any other tests that you think are required to demonstrate that the components within the application behave as expected.
+### `npm run eject`
 
-The project has been bootstrapped to use Jest as a test runner and Enzyme for testing utilities but feel free to use whatever testing library you are comfortable with (just make sure we can use the command `npm run test`/`yarn test` to run the tests).
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-Some stretch goals you might want to consider are:
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-1. Display loading states when the product detail and search suggestions are being fetched.
-2. Make sure the application is fully keyboard-accessible.
-3. The application currently doesn't account for errors when fetching (response failures, request timeouts etc.), how could this be handled within the application?
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-## Your Solution
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-Please feel free to spend as much or as little time as you want on improving the application, typically 2-3 hours is enough. What's important is that you are happy with the work that you produce so you can take more time if you want to. We’re looking for simple, clean, readable code. Please try to avoid over-engineering or gold plating.
+## Learn More
 
-We don’t want lots of explanatory comments in the code, but if you run out of time and would still like to refactor something then feel free to add a comment in the relevant place. Likewise, you can comment with any other narrations that are relevant.
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-Feel free to use the internet to look up anything you need. Once you are done, please reply to the email you received containing this test, attaching a zipped solution that compiles, runs in the latest versions of both chrome and safari, and has passing unit tests (**Please make sure to remove node_modules before zipping your solution as to avoid large email attachments!**).
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

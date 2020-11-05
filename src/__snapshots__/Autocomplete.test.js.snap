@@ -1,15 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Autocomplete Renders correctly 1`] = `
-<div
-  className="search-container"
->
-  <input
-    className="search-box"
-    onChange={[Function]}
-    placeholder="Search for a product"
-    type="text"
-    value=""
-  />
-</div>
+exports[`Autocomplete renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="search-container"
+  >
+    <label
+      class="visually-hidden"
+      for="search-box"
+    >
+      Search for a product or brand
+    </label>
+    <input
+      class="search-box"
+      id="search-box"
+      placeholder="Search for a product"
+      type="search"
+      value=""
+    />
+  </div>
+</DocumentFragment>
 `;

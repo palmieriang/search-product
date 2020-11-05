@@ -1,45 +1,63 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
 import { fetchProductDetail } from "./utils/api";
+import { ReactComponent as LoadingIcon } from "./svg/loading.svg";
 
 import "./ProductDetail.css";
 
-function ProductDetail({ productId }) {
+const ProductDetail = ({ productId }) => {
   const [productInfo, setProductInfo] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!productId) return;
 
-    fetchProductDetail(productId).then((productInfo) =>
-      setProductInfo(productInfo)
-    );
+    setIsLoading(true);
+    fetchProductDetail(productId).then((productInfo) => {
+      setProductInfo(productInfo);
+      setIsLoading(false);
+    });
   }, [productId]);
 
-  const renderProductInfo = () => {
-    return (
-      <div className="detail-container">
-        <div className="row">
-          <img src={productInfo.productImage} className="product-image" />
-        </div>
-        <div className="row">
-          <div className="row-title">Name:</div>
-          <div className="row-body">{productInfo.name}</div>
-        </div>
+  if (!productInfo) {
+    return null;
+  }
 
-        <div className="row">
-          <div className="row-title">Product Code:</div>
-          <div className="row-body">{productInfo.productCode}</div>
-        </div>
+  const {productImage, name, price, productCode} = productInfo;
 
-        <div className="row">
-          <div className="row-title">Price:</div>
-          <div className="row-body">{productInfo.price}</div>
-        </div>
-      </div>
-    );
-  };
+  return (
+    <>
+      {isLoading ?
+        (
+          <div className="loading-container">
+            <LoadingIcon />
+          </div>
+        )
+        :
+        (
+          <div className="detail-container">
+            <div className="row">
+              <img src={productImage} className="product-image" alt={name} />
+            </div>
 
-  return productInfo && renderProductInfo();
+            <div className="row">
+              <div className="row-body">{name}</div>
+            </div>
+
+            <div className="row">
+              <div className="row-body product-price">{price}</div>
+              <div className="row-body product-id">{productCode}</div>
+            </div>
+          </div>
+        )
+      }
+    </>
+  );
 }
+
+ProductDetail.propTypes = {
+  productId: PropTypes.string,
+};
 
 export default ProductDetail;

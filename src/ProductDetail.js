@@ -30,7 +30,7 @@ const ProductDetail = ({ productId }) => {
     <>
       {isLoading ?
         (
-          <div className="loading-container">
+          <div className="loading-container" data-testid="loading-icon">
             <LoadingIcon />
           </div>
         )

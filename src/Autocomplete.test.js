@@ -23,6 +23,18 @@ describe("Autocomplete", () => {
     expect(fetchSuggestions).not.toHaveBeenCalled();
   });
 
+  it("should display loading states when the search suggestions are being fetched", async () => {
+    fetchSuggestions.mockResolvedValueOnce([{ id: 1, name: "shirt" }]);
+
+    const { getByLabelText, getByText } = render(<Autocomplete />);
+
+    fireEvent.change(getByLabelText(/Search/), {
+      target: { value: "shirt" }
+    });
+
+    await waitFor(() => expect(getByText(/loading.../i)).toBeInTheDocument());
+  });
+
   it("should fetch if the user has entered a search query", async () => {
     fetchSuggestions.mockResolvedValue([{id: 1, name: "shirt"}, {id: 2, name: "coat"}]);
 

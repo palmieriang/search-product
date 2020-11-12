@@ -23,6 +23,18 @@ describe("Autocomplete", () => {
     expect(fetchSuggestions).not.toHaveBeenCalled();
   });
 
+  it("should display loading states when the search suggestions are being fetched", async () => {
+    fetchSuggestions.mockResolvedValueOnce([{ id: 1, name: "shirt" }]);
+
+    const { getByLabelText, getByText } = render(<Autocomplete />);
+
+    fireEvent.change(getByLabelText(/Search/), {
+      target: { value: "shirt" }
+    });
+
+    await waitFor(() => expect(getByText(/loading.../i)).toBeInTheDocument());
+  });
+
   it("should fetch if the user has entered a search query", async () => {
     fetchSuggestions.mockResolvedValue([{id: 1, name: "shirt"}, {id: 2, name: "coat"}]);
 
@@ -39,11 +51,11 @@ describe("Autocomplete", () => {
   it("should show suggestions", async () => {
     fetchSuggestions.mockResolvedValueOnce([{id: 1, name: "shirt"}]);
 
-    render(<Autocomplete />);
+    const { getByLabelText, getByText } = render(<Autocomplete />);
 
-    fireEvent.change(screen.getByLabelText(/Search/), { target: { value: "shirt" } });
+    fireEvent.change(getByLabelText(/Search/), { target: { value: "shirt" } });
 
-    await waitFor(() => expect(screen.getByText(/shirt/)).toBeInTheDocument());
+    await waitFor(() => expect(getByText(/shirt/)).toBeInTheDocument());
   });
 
   it("should only show the top 10 suggestions at a time", async () => {
@@ -62,11 +74,23 @@ describe("Autocomplete", () => {
     ];
     fetchSuggestions.mockResolvedValueOnce(suggestions);
 
+    const { getByLabelText, getAllByText } = render(<Autocomplete />);
+
+    fireEvent.change(getByLabelText(/Search/), { target: { value: "query" } });
+
+    await waitFor(() => expect(getAllByText(/shirt/)).toHaveLength(10));
+  });
+
+  it("should display 'no matches' when there are no search suggestions", async () => {
+    fetchSuggestions.mockResolvedValueOnce([]);
+
     render(<Autocomplete />);
 
-    fireEvent.change(screen.getByLabelText(/Search/), { target: { value: "query" } });
+    fireEvent.change(screen.getByLabelText(/Search/), {
+      target: { value: "shirt" }
+    });
 
-    await waitFor(() => expect(screen.getAllByText(/shirt/)).toHaveLength(10));
+    await waitFor(() => expect(screen.queryByText(/No matches/i)).toBeInTheDocument());
   });
 
   it("should not request for suggestions on every keystroke", async () => {

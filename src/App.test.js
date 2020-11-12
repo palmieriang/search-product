@@ -54,6 +54,6 @@ describe("App", () => {
 
     userEvent.click(button);
 
-    expect(input).toHaveValue('');
+    await waitFor(() => expect(input).toHaveValue(''))
   });
 });
